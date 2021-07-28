@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Draggable from 'react-draggable';
 
 
@@ -7,7 +7,8 @@ function SelectedMeme(props: { selectedMeme: any, reset: () => void }) {
     interface DankMeme {
         text: string;
     }
-    const [memeTexts, setMemeTexts] = useState<DankMeme[]>([]);
+    const [memeTexts, setMemeTexts] = useState<DankMeme[]>([{'text': 'text'}]);
+
 
     const updateFieldChanged = (index: number, e: React.ChangeEvent<HTMLTextAreaElement>) => {
         //Fill with old array
