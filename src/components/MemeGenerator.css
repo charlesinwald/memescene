@@ -1,15 +1,10 @@
 /* Containers */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-template-rows: repeat(auto-fit, 400px);
-    grid-auto-flow: dense;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1rem;
 }
 
-.meme-view {
-    display: grid;
-}
 
 /* Images */
 .meme-image {
@@ -43,7 +38,7 @@
 .meme-text {
     max-height: 3em;
     max-width: 3em;
-        background: transparent;
+    background: transparent;
     border: none;
     z-index: 1000;
     display: inline;
@@ -69,4 +64,9 @@
     top: -538px;
     will-change: top, left;
     transition: none 0s ease 0s;
+}
+
+/* Hacks */
+textarea {
+    resize: none;
 }
