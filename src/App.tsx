@@ -17,8 +17,15 @@ function App() {
   let isMobile: boolean = (width <= 768);
   return (
     <div className="App">
-      <h3>MemeScene</h3>
-      {isMobile ? <h2>Mobile Version Coming Soon</h2>
+      <div className="flex items-center flex-no-shrink text-white bg-gradient-to-t from-gray-600 p-2">
+        <span className="font-semibold text-xl tracking-tight pl-2">
+          <a href="/">MemeScene</a>
+        </span>
+      </div>
+      {isMobile ?
+        <div className="flex items-center flex-no-shrink">
+          <span className="font-semibold text-3xl tracking-tight pl-2 text-white text-center">Mobile Version Coming Soon</span>
+        </div>
         :
         <MemeGenerator />
       }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Draggable from 'react-draggable';
 
 
@@ -7,7 +7,7 @@ function SelectedMeme(props: { selectedMeme: any, reset: () => void }) {
     interface DankMeme {
         text: string;
     }
-    const [memeTexts, setMemeTexts] = useState<DankMeme[]>([{'text': 'text'}]);
+    const [memeTexts, setMemeTexts] = useState<DankMeme[]>([{ 'text': 'text' }]);
 
 
     const updateFieldChanged = (index: number, e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,8 +40,8 @@ function SelectedMeme(props: { selectedMeme: any, reset: () => void }) {
     </div>;
 
     function TextBox(i: number, x?: string): JSX.Element {
-        return <Draggable bounds="parent" key={i} enableUserSelectHack>
-            <textarea value={x} placeholder="Text" className="object-scale-down meme-text"
+        return <Draggable bounds="parent" key={i} grid={[25, 25]} enableUserSelectHack>
+            <textarea value={x} placeholder="Text" className="object-scale-down resize meme-text"
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => updateFieldChanged(i, e)} />
         </Draggable>;
     }
