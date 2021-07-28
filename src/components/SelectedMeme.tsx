@@ -39,7 +39,7 @@ function SelectedMeme(props: { selectedMeme: any, reset: () => void }) {
     </div>;
 
     function TextBox(i: number, x?: string): JSX.Element {
-        return <Draggable bounds="parent" key={i}>
+        return <Draggable bounds="parent" key={i} enableUserSelectHack>
             <textarea value={x} placeholder="Text" className="object-scale-down meme-text"
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => updateFieldChanged(i, e)} />
         </Draggable>;
