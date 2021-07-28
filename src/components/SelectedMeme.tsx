@@ -23,7 +23,7 @@ function SelectedMeme(props: { selectedMeme: any, reset: () => void }) {
         <div className="relative w-full">
             <img
                 src={props.selectedMeme.url} alt={props.selectedMeme.name}
-                className={"max-w-screen-md mx-auto"} />
+                className={"max-w-screen-md mx-auto my-2"} />
             <button className="absolute top-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2"
                 onClick={addText()}>Add Text</button>
         </div>
@@ -41,7 +41,7 @@ function SelectedMeme(props: { selectedMeme: any, reset: () => void }) {
 
     function TextBox(i: number, x?: string): JSX.Element {
         return <Draggable bounds="parent" key={i} grid={[25, 25]} enableUserSelectHack>
-            <textarea value={x} placeholder="Text" className="object-scale-down resize meme-text"
+            <textarea value={x} placeholder="Text" className="object-scale-down meme-text"
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => updateFieldChanged(i, e)} />
         </Draggable>;
     }
