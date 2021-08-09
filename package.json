@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "*",
+    "@craco/craco": "^6.2.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -19,6 +19,7 @@
     "react-dom": "^17.0.2",
     "react-draggable": "*",
     "react-resizable": "*",
+    "react-rnd": "^10.3.4",
     "react-scripts": "4.0.3",
     "serve": "*",
     "typescript": "^4.1.2",
