@@ -143,19 +143,19 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
         );
     }
 
-    function ImportedImage(i: number, image: string): JSX.Element {
-        return (
-            <Rnd
-                default={{
-                    x: 70,
-                    y: 70,
-                    width: 420,
-                    height: 100,
-                }}>
-                <img src={image} />
-            </Rnd>
-        );
-    }
+    // function ImportedImage(i: number, image: string): JSX.Element {
+    //     return (
+    //         <Rnd
+    //             default={{
+    //                 x: 70,
+    //                 y: 70,
+    //                 width: 420,
+    //                 height: 100,
+    //             }}>
+    //             <img src={image} />
+    //         </Rnd>
+    //     );
+    // }
 
     function addText(): React.MouseEventHandler<HTMLButtonElement> | undefined {
         return () => {
