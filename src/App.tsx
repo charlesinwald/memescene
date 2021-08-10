@@ -22,7 +22,7 @@ function App() {
         </span>
       </div>
         <MemeGenerator />
-      }
+      
     </div>
   );
 }
