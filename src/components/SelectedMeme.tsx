@@ -7,7 +7,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
         width: string;
     }
     const [memeTexts, setMemeTexts] = useState<DankMeme[]>([]);
-    const [memeImages, setMemeImages] = useState<string[]>([]);
+    // const [memeImages, setMemeImages] = useState<string[]>([]);
 
     //============================NOVRANDOBILLY'S CHANGE=============================
     const [inputWidth, setInputWidth] = useState<string>('130px');
