@@ -26,15 +26,14 @@ function MemeGenerator() {
 
     function MemeItem(meme: any, index: number) {
         return <img src={meme.url} alt={meme.name} key={selectedMeme.id}
-            className={'w-full block rounded-b meme-image flex-grow-2'}
-            style={{ gridColumn: `${index + 1}%${index + 2}`, gridRow: `${index + 1}%${index + 2}` }}
+            className={'w-full block rounded-b flex-grow-0 p-10'}
             onClick={(e) => handleClick(meme)} />;
     }
 
     return <main className="overflow-hidden">
         {
             (selectedMeme === '') ?
-                <div className="gallery flex items-center p-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 flex items-center content-center p-10 m-auto">
                     {memes.map((meme, index) => MemeItem(meme, index))}
                 </div>
                 :
