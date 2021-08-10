@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./MemeGenerator.css";
 import SelectedMeme from "./SelectedMeme";
 
@@ -18,7 +18,6 @@ function MemeGenerator() {
             .then(res => res.json())
             .then(output => {
                 let memes = output.data.memes.slice(0, 15);
-                console.log(memes);
                 setMemes(memes)
             })
             .catch(err => console.log(err));
