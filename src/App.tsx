@@ -1,18 +1,7 @@
-// import React, { useEffect, useState } from 'react';
 import './App.css';
 import MemeGenerator from "./components/MemeGenerator";
 
 function App() {
-  // const [width, setWidth] = useState<number>(window.innerWidth);
-  // function handleWindowSizeChange() {
-  //   setWidth(window.innerWidth);
-  // }
-  // useEffect(() => {
-  //   window.addEventListener('resize', handleWindowSizeChange);
-  //   return () => {
-  //     window.removeEventListener('resize', handleWindowSizeChange);
-  //   }
-  // }, []);
 
   return (
     <div className="App bg-gray-800">
