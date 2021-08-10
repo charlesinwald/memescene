@@ -4,6 +4,7 @@ import { Rnd } from 'react-rnd';
 function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     interface DankMeme {
         text: string;
+        width: string;
     }
     const [memeTexts, setMemeTexts] = useState<DankMeme[]>([]);
     const [memeImages, setMemeImages] = useState<string[]>([]);
@@ -13,7 +14,6 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     //===============================================================================
 
 
-    const [uploading, setUploading] = useState<boolean>(false);
 
     const updateFieldChanged = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -28,25 +28,25 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
         //Fill with old array
         let newArr: DankMeme[] = [...memeTexts];
         //Set specified element to the new text
-        newArr[index] = { text: e.currentTarget.value };
+        newArr[index] = { text: e.currentTarget.value, width: inputWidth };
         //Set State
         setMemeTexts(newArr);
     };
 
-    const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        //check if we actually have files
-        if (!!e.target && !!e.target.files) {
-            const files = Array.from(e.target.files);
-            //Enter uploading state
-            setUploading(true);
-            let image = URL.createObjectURL(e.target.files[0]);
-            //Fill with old array
-            let newArr: string[] = [...memeImages, image];
-            setMemeImages(newArr);
-        } else {
-            alert('Error uploading Image');
-        }
-    };
+    // const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     //check if we actually have files
+    //     if (!!e.target && !!e.target.files) {
+    //         const files = Array.from(e.target.files);
+    //         //Enter uploading state
+    //         setUploading(true);
+    //         let image = URL.createObjectURL(e.target.files[0]);
+    //         //Fill with old array
+    //         let newArr: string[] = [...memeImages, image];
+    //         setMemeImages(newArr);
+    //     } else {
+    //         alert('Error uploading Image');
+    //     }
+    // };
 
     return (
         <div className='w-full h-full overflow-hidden'>
@@ -73,7 +73,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     <div>
                         {memeTexts.map((x, i) => {
                             if (x && x.text) {
-                                return TextBox(i, x.text);
+                                return TextBox(i, x.text, x.width);
                             } else {
                                 return TextBox(i);
                             }
@@ -91,18 +91,18 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
             </div>
             <div>
 
-                <div>
+                {/* <div>
                     {memeImages.map((x, i) => {
                         ImportedImage(i, x);
                     })}
-                </div>
+                </div> */}
             </div>
         </div>
     );
 
 
 
-    function TextBox(i: number, x?: string): JSX.Element {
+    function TextBox(i: number, x?: string, inputwidth?: string): JSX.Element {
         return (
             <Rnd
                 bounds='#main-image'
@@ -120,7 +120,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     value={x}
                     placeholder='Text'
                     className='resize-x fill-parent meme-text'
-                    style={{ width: `${inputWidth}` }}
+                    style={{ width: `${inputwidth}` }}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFieldChanged(i, e)}
                 />
                 {/* =========================================================================== */}
@@ -159,7 +159,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
 
     function addText(): React.MouseEventHandler<HTMLButtonElement> | undefined {
         return () => {
-            const meme: DankMeme = { text: 'Text' };
+            const meme: DankMeme = { text: 'Text', width: '200px' };
             //Fill with old array
             let newArr: DankMeme[] = [...memeTexts, meme];
             setMemeTexts(newArr);
