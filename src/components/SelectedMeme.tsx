@@ -7,29 +7,29 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     const useActiveElement = () => {
         const [listenersReady, setListenersReady] = React.useState(false); /** Useful when working with autoFocus */
         const [activeElement, setActiveElement] = React.useState(document.activeElement);
-      
+
         React.useEffect(() => {
-          //@ts-ignore  
-          const onFocus = (event) => setActiveElement(event.target);
-          //@ts-ignore  
-          const onBlur = (event) => setActiveElement(null);
-      
-          window.addEventListener("focus", onFocus, true);
-          window.addEventListener("blur", onBlur, true);
-      
-          setListenersReady(true);
-      
-          return () => {
-            window.removeEventListener("focus", onFocus);
-            window.removeEventListener("blur", onBlur);
-          };
+            //@ts-ignore  
+            const onFocus = (event) => setActiveElement(event.target);
+            //@ts-ignore  
+            const onBlur = (event) => setActiveElement(null);
+
+            window.addEventListener("focus", onFocus, true);
+            window.addEventListener("blur", onBlur, true);
+
+            setListenersReady(true);
+
+            return () => {
+                window.removeEventListener("focus", onFocus);
+                window.removeEventListener("blur", onBlur);
+            };
         }, []);
-      
+
         return {
-          activeElement,
-          listenersReady
+            activeElement,
+            listenersReady
         };
-      };
+    };
 
     interface DankMeme {
         text: string;
@@ -51,7 +51,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     React.useEffect(() => {
         console.log(`Active element:`, activeElement);
     }, [activeElement]);
-    
+
     const updateFieldChanged = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         //Dynamic text box width
         const charLength = e.target.value.length
@@ -95,28 +95,33 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                         })}
                     </div>
                 </div>
-                <button className='absolute top-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
-                    Add Text
-                </button>
-                {controlsVisible ?
-                <button className="absolute top-20 bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) =>changeColor()}>
-                        Toggle Color
-                </button>
-                    :
-                <button disabled className="absolute top-20 bg-gray-500 text-white p-2 rounded m-2">Color</button>
-                }
-                <button className="absolute top-0 right-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, {fileName: "memescene-meme"}
-              )}>
-                    Save
-                </button>
+                <div className='relative'>
+                    <div className='flex block absolute bottom-0 left-0'>
+                        <button className='block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
+                            Add Text
+                        </button>
+                        {controlsVisible ?
+                            <button className="block flex-initial bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
+                                Toggle Color
+                            </button>
+                            :
+                            <button disabled className="block flex-initial bg-gray-500 text-white p-2 rounded m-2">Color</button>
+                        }
+                        <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, { fileName: "memescene-meme" }
+                        )}>
+                            Save
+                        </button>
+                    </div>
+                </div>
+
             </div>
             <div>
             </div>
-        </div>
+        </div >
     );
 
 
-    function TextBox(i: number, x?: string, inputwidth?: string, color? : string): JSX.Element {
+    function TextBox(i: number, x?: string, inputwidth?: string, color?: string): JSX.Element {
         console.log(color);
         return (
             <Rnd
@@ -135,7 +140,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     id={i.toString()}
                     placeholder='Text'
                     className='resize-x fill-parent meme-text'
-                    style={{ width: `${inputwidth}`, color: `${color}`}}
+                    style={{ width: `${inputwidth}`, color: `${color}` }}
                     autoFocus
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFieldChanged(i, e)}
                 />
@@ -156,7 +161,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     }
     function changeColor(): void {
         if (activeElement && activeElement.id) {
-            let id : number = Number(activeElement.id);
+            let id: number = Number(activeElement.id);
             console.log(memeTextBoxes[id]);
             //Update object's name property.
             if (memeTextBoxes[id].color === "white") {
@@ -171,7 +176,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
             console.log(memeTextBoxes[id]);
         }
     }
-    
+
 }
 
 export default SelectedMeme;
