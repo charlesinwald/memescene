@@ -1,9 +1,19 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('Smoke Tests', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  //Expect titlebar to be there
+  expect(screen.getByText('m e m e scene')).toBeInTheDocument();
+  //Expect main section to be there
+  expect(screen.getByRole('main')).toBeInTheDocument();
 });
+
+test('Browse Screen', () => {
+  render(<App />);
+  const main = screen.getByRole('main');
+  //Expect main section to be there
+  expect(main).toBeInTheDocument();
+});
+
+
