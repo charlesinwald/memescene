@@ -29,12 +29,12 @@ function MemeGenerator() {
     }
 
     function steps() {
-        return <div className="h-20 y-20 bg-blue-500 flex items-center ">
+        return <header className="h-20 y-20 bg-blue-500 flex items-center ">
                     <h1 className="text-white ml-4 border-2 py-2 px-4 rounded-full">{selectedMeme ? 2 : 1}</h1>
                     <p className=" text-white text-base ml-4 uppercase">
                     {selectedMeme ? 'Edit meme ': 'Pick a meme template'}
                     </p>
-                </div>
+                </header>
     }
 
     return <main className="overflow-hidden">
