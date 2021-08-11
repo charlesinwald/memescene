@@ -32,7 +32,7 @@ function MemeGenerator() {
     return <main className="overflow-hidden">
         {
             (selectedMeme === '') ?
-                <div className="grid grid-cols-1 md:grid-cols-3 flex items-center content-center p-5 m-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 flex items-center content-center p-5 m-auto cursor-pointer">
                     {memes.map((meme, index) => MemeItem(meme, index))}
                 </div>
                 :

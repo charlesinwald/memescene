@@ -1,18 +1,53 @@
-import React, { useState, lazy } from 'react';
+import React, { useState, lazy, useEffect } from 'react';
 import { Rnd } from 'react-rnd';
 
+
+
 function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
+    const useActiveElement = () => {
+        const [listenersReady, setListenersReady] = React.useState(false); /** Useful when working with autoFocus */
+        const [activeElement, setActiveElement] = React.useState(document.activeElement);
+      
+        React.useEffect(() => {
+          //@ts-ignore  
+          const onFocus = (event) => setActiveElement(event.target);
+          //@ts-ignore  
+          const onBlur = (event) => setActiveElement(null);
+      
+          window.addEventListener("focus", onFocus, true);
+          window.addEventListener("blur", onBlur, true);
+      
+          setListenersReady(true);
+      
+          return () => {
+            window.removeEventListener("focus", onFocus);
+            window.removeEventListener("blur", onBlur);
+          };
+        }, []);
+      
+        return {
+          activeElement,
+          listenersReady
+        };
+      };
 
     interface DankMeme {
         text: string;
         width: string;
+        color?: string;
     }
 
     //Array of text boxes
-    const [memeTexts, setMemeTexts] = useState<DankMeme[]>([]);
+    const [memeTextBoxes, setMemeTexts] = useState<DankMeme[]>([]);
     //For dynamic width textboxes
     const [inputWidth, setInputWidth] = useState<string>('130px');
+    //For automatically focusing the new textbox, even if there isn't one yet
+    const { activeElement, listenersReady } = useActiveElement();
 
+    React.useEffect(() => {
+        console.log(`Active element:`, activeElement);
+    }, [activeElement]);
+    
 
 
     const updateFieldChanged = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +59,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
         setInputWidth(newWidth)
 
         //Fill with old array
-        let newArr: DankMeme[] = [...memeTexts];
+        let newArr: DankMeme[] = [...memeTextBoxes];
         //Set specified element to the new text
         newArr[index] = { text: e.currentTarget.value, width: inputWidth };
         //Set State
@@ -32,6 +67,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     };
 
 
+    const controlsVisible = activeElement instanceof HTMLInputElement;
     return (
         <div className='w-full h-full overflow-hidden'>
             <div className='relative w-full'>
@@ -48,9 +84,9 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                         backgroundPositionX: 'center',
                     }}>
                     <div>
-                        {memeTexts.map((x, i) => {
+                        {memeTextBoxes.map((x, i) => {
                             if (x && x.text) {
-                                return TextBox(i, x.text, x.width);
+                                return TextBox(i, x.text, x.width, x.color);
                             } else {
                                 return TextBox(i);
                             }
@@ -60,6 +96,11 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                 <button className='absolute top-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
                     Add Text
                 </button>
+                {controlsVisible ?
+                <button className="absolute top-20 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) =>changeColor()}>Color</button>
+                    :
+                <button disabled className="absolute top-20 bg-gray-500 text-white p-2 rounded m-2" >Color</button>
+                }
             </div>
             <div>
             </div>
@@ -67,7 +108,8 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     );
 
 
-    function TextBox(i: number, x?: string, inputwidth?: string): JSX.Element {
+    function TextBox(i: number, x?: string, inputwidth?: string, color? : string): JSX.Element {
+        console.log(color);
         return (
             <Rnd
                 bounds='#main-image'
@@ -78,12 +120,14 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     width: `${inputwidth}`,
                     height: 300,
                 }}
+                key={i}
             >
                 <input
                     value={x}
+                    id={i.toString()}
                     placeholder='Text'
                     className='resize-x fill-parent meme-text'
-                    style={{ width: `${inputwidth}` }}
+                    style={{ width: `${inputwidth}`, color: `${color}`}}
                     autoFocus
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFieldChanged(i, e)}
                 />
@@ -91,15 +135,36 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
         );
     }
 
-
+    /*
+    / Controls
+    */
     function addText(): React.MouseEventHandler<HTMLButtonElement> | undefined {
         return () => {
-            const meme: DankMeme = { text: 'Text', width: '200px' };
+            const meme: DankMeme = { text: 'Text', width: '200px', color: 'white' };
             //Fill with old array
-            let newArr: DankMeme[] = [...memeTexts, meme];
+            let newArr: DankMeme[] = [...memeTextBoxes, meme];
             setMemeTexts(newArr);
         };
     }
+    function changeColor(): void {
+        if (activeElement && activeElement.id) {
+            let id : number = Number(activeElement.id);
+            console.log(memeTextBoxes[id]);
+            //Update object's name property.
+            if (memeTextBoxes[id].color == "white") {
+                memeTextBoxes[id].color = "black";
+            }
+            else {
+                memeTextBoxes[id].color = "white";
+            }
+            //Log object to console again.
+            console.log(memeTextBoxes[id]);
+        }
+    }
+
+    
 }
 
 export default SelectedMeme;
+
+
