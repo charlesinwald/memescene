@@ -1,6 +1,6 @@
-import React, { useState, lazy, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import { Rnd } from 'react-rnd';
-import { toPng } from 'html-to-image';
+import { exportComponentAsPNG } from 'react-component-export-image';
 
 
 function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
@@ -42,7 +42,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     //For dynamic width textboxes
     const [inputWidth, setInputWidth] = useState<string>('130px');
     //For current Color, not to be confused with color set on DankMeme
-    const [ currentColor, setCurrentColor ] = useState<string>('white');
+    const [ currentColor, setCurrentColor ] = useState<string>('black');
     //For automatically focusing the new textbox, even if there isn't one yet
     const { activeElement, listenersReady } = useActiveElement();
     const ref = useRef<HTMLDivElement>(null)
@@ -68,28 +68,11 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
         setMemeTexts(newArr);
     };
 
-    const saveImage = useCallback(() => {
-        if (ref.current === null) {
-          return
-        }
-    
-        toPng(ref.current, { cacheBust: true, })
-          .then((dataUrl) => {
-            const link = document.createElement('a')
-            link.download = 'my-image-name.png'
-            link.href = dataUrl
-            link.click()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }, [ref])
 
     const controlsVisible = activeElement instanceof HTMLInputElement;
     return (
         <div className='w-full h-full overflow-hidden'>
             <div className='relative w-full'>
-
                 <div
                     id='main-image'
                     className={'max-w-screen-md mx-auto my-2'}
@@ -122,7 +105,8 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     :
                 <button disabled className="absolute top-20 bg-gray-500 text-white p-2 rounded m-2">Color</button>
                 }
-                <button className="absolute top-0 right-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onKeyDown={saveImage}>
+                <button className="absolute top-0 right-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, {fileName: "memescene-meme"}
+              )}>
                     Save
                 </button>
             </div>
@@ -164,7 +148,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     */
     function addText(): React.MouseEventHandler<HTMLButtonElement> | undefined {
         return () => {
-            const meme: DankMeme = { text: 'Text', width: '200px', color: 'white' };
+            const meme: DankMeme = { text: 'Text', width: '200px', color: 'black' };
             //Fill with old array
             let newArr: DankMeme[] = [...memeTextBoxes, meme];
             setMemeTexts(newArr);
@@ -175,7 +159,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
             let id : number = Number(activeElement.id);
             console.log(memeTextBoxes[id]);
             //Update object's name property.
-            if (memeTextBoxes[id].color == "white") {
+            if (memeTextBoxes[id].color === "white") {
                 memeTextBoxes[id].color = "black";
                 setCurrentColor("black");
             }
