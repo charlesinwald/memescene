@@ -55,6 +55,10 @@
     -2px 0px 0 #000, 2px 2px 5px #000;
 }
 
+.meme-text-light {
+  color: black;
+}
+
 .add-button {
   max-width: fit-content;
   left: 765px;
@@ -67,3 +71,4 @@
 textarea {
   resize: none;
 }
+
