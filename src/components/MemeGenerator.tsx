@@ -3,7 +3,6 @@ import "./MemeGenerator.css";
 import SelectedMeme from "./SelectedMeme";
 
 
-
 function MemeGenerator() {
     const [selectedMeme, setSelectedMeme] = useState<any>('');
     const [memes, setMemes] = useState<any[]>([]);
