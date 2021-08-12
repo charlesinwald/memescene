@@ -1,0 +1,45 @@
+.meme-gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.meme-card-container {
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  /* Comment this 2 lines below (padding & width) if you prefer compact gallery */
+  padding: 5px;
+  width: 360px;
+  /* ===================================================================== */
+}
+
+.meme-card-container > img {
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  border: 3px solid white;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.meme-card-container > img:hover {
+  cursor: pointer;
+  box-shadow: 0 0 20px white;
+  transform: scale(1.1);
+}
+
+@media screen and (max-width: 768px) {
+  .meme-card-container {
+    width: 300px;
+    height: 300px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .meme-card-container {
+    /* width: 300px; */
+    height: 250px;
+  }
+}
