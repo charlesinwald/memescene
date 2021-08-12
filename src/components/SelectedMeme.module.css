@@ -1,0 +1,21 @@
+.main-image {
+  width: 600px;
+  height: 600px;
+}
+
+@media screen and (max-width: 768px) {
+  #selected-meme-button-container > button {
+    font-size: 1rem;
+  }
+  .main-image {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main-image {
+    width: 90%;
+  }
+  #selected-meme-button-container > button {
+    font-size: 1rem;
+  }
+}
