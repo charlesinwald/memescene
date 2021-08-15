@@ -64,7 +64,7 @@ function MemeGenerator() {
                 <Disclosure.Panel className="bg-blue-500">
                     <input type="file" multiple className="opacity-0 cursor-pointer relative block w-full h-full p-20 z-50 " />
                     <div className='bg-blue-600'>
-                        Drag File to Upload
+                        Click Here or Drag File to Upload
                     </div>
                 </Disclosure.Panel>
 
