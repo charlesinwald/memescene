@@ -42,8 +42,6 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     const [memeTextBoxes, setMemeTexts] = useState<DankMeme[]>([]);
     //For dynamic width textboxes
     const [inputWidth, setInputWidth] = useState<string>('130px');
-    //For current Color, not to be confused with color set on DankMeme
-    // const [ currentColor, setCurrentColor ] = useState<string>('black');
     //For automatically focusing the new textbox, even if there isn't one yet
     const { activeElement } = useActiveElement();
     const ref = useRef<HTMLDivElement>(null)
@@ -166,11 +164,9 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
             //Update object's name property.
             if (memeTextBoxes[id].color === "white") {
                 memeTextBoxes[id].color = "black";
-                // setCurrentColor("black");
             }
             else {
                 memeTextBoxes[id].color = "white";
-                // setCurrentColor("white");
             }
             //Log object to console again.
             console.log(memeTextBoxes[id]);
