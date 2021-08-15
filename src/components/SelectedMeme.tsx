@@ -77,6 +77,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                 <div
                     id='main-image'
                     className={`max-w-screen-md mx-auto my-2 ${styles['main-image']}`}
+                    onDoubleClick={addText()}
                     ref={ref}
                     style={{
                         backgroundImage: `url(${props.selectedMeme.url})`,
@@ -150,7 +151,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     /*
     / Controls
     */
-    function addText(): React.MouseEventHandler<HTMLButtonElement> | undefined {
+    function addText(): React.MouseEventHandler<HTMLElement> | undefined {
         return () => {
             const meme: DankMeme = { text: 'Text', width: '200px', color: 'black' };
             //Fill with old array
