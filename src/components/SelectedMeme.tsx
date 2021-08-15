@@ -137,8 +137,11 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     value={x}
                     id={i.toString()}
                     placeholder='Text'
-                    className='resize-x fill-parent meme-text'
-                    style={{ width: `${inputwidth}`, color: `${color}` }}
+                    className='resize-x fill-parent meme-text min-w-min'
+                    style={{
+                        width: `${inputwidth}`,
+                        color: `${color}`
+                    }}
                     autoFocus
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFieldChanged(i, e)}
                 />
