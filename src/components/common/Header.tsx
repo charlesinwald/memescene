@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, UploadIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = ['Templates', 'Editor']
 const profile = ['Your Profile', 'Settings', 'Sign out']
@@ -51,7 +51,7 @@ export default function Example() {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    
+
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">

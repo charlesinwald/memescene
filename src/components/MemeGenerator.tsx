@@ -3,7 +3,7 @@ import './MemeGenerator.css';
 import SelectedMeme from './SelectedMeme';
 import styles from './MemeCard.module.css';
 import { Disclosure } from '@headlessui/react';
-import { DocumentSearchIcon, UploadIcon } from '@heroicons/react/outline';
+import { UploadIcon } from '@heroicons/react/outline';
 
 function MemeGenerator() {
     const [selectedMeme, setSelectedMeme] = useState<any>('');
