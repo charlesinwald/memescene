@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/omustardo/memescene/backend/server"
+	"github.com/cinwald/memescene/backend/server"
 	"log"
 )
 

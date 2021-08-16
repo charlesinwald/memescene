@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 	"github.com/lithammer/shortuuid"
-	"github.com/omustardo/memescene/database/template"
+	"github.com/cinwald/memescene/database/template"
 	"io"
 	"os"
 	"strings"
