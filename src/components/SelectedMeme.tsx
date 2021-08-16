@@ -42,12 +42,10 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     const [memeTextBoxes, setMemeTexts] = useState<DankMeme[]>([]);
     //For dynamic width textboxes
     const [inputWidth, setInputWidth] = useState<string>('130px');
-    //For current Color, not to be confused with color set on DankMeme
-    // const [ currentColor, setCurrentColor ] = useState<string>('black');
     //For automatically focusing the new textbox, even if there isn't one yet
     const { activeElement } = useActiveElement();
     const ref = useRef<HTMLDivElement>(null)
-
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     React.useEffect(() => {
         console.log(`Active element:`, activeElement);
@@ -94,25 +92,29 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                             }
                         })}
                     </div>
-                </div>
-                <div className='relative'>
-                    <div className='flex block absolute bottom-0 left-0' id={styles['selected-meme-button-container']}>
-                        <button className='block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
-                            Add Text
-                        </button>
-                        {controlsVisible ?
-                            <button className="block flex-initial bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
-                                Toggle Color
+                    <canvas className="w-full h-full" ref={canvasRef}>
+
+                    </canvas>
+                    <div className='relative'>
+                        <div className='flex block absolute bottom-0 left-0' id={styles['selected-meme-button-container']}>
+                            <button className='block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
+                                Add Text
                             </button>
-                            :
-                            <button disabled className="block flex-initial bg-gray-500 text-white p-2 rounded m-2">Color</button>
-                        }
-                        <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, { fileName: "memescene-meme" }
-                        )}>
-                            Save
-                        </button>
+                            {controlsVisible ?
+                                <button className="block flex-initial bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
+                                    Toggle Color
+                                </button>
+                                :
+                                <button disabled className="block flex-initial bg-gray-500 text-white p-2 rounded m-2">Color</button>
+                            }
+                            <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, { fileName: "memescene-meme" }
+                            )}>
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
+
 
             </div>
             <div>
@@ -139,8 +141,11 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     value={x}
                     id={i.toString()}
                     placeholder='Text'
-                    className='resize-x fill-parent meme-text'
-                    style={{ width: `${inputwidth}`, color: `${color}` }}
+                    className='resize-x fill-parent meme-text min-w-min'
+                    style={{
+                        width: `${inputwidth}`,
+                        color: `${color}`
+                    }}
                     autoFocus
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFieldChanged(i, e)}
                 />
@@ -166,11 +171,9 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
             //Update object's name property.
             if (memeTextBoxes[id].color === "white") {
                 memeTextBoxes[id].color = "black";
-                // setCurrentColor("black");
             }
             else {
                 memeTextBoxes[id].color = "white";
-                // setCurrentColor("white");
             }
             //Log object to console again.
             console.log(memeTextBoxes[id]);
