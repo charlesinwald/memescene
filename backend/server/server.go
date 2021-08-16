@@ -2,6 +2,7 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -17,8 +18,14 @@ type Server struct {
 	db *database.Database
 }
 
+func (s *Server) Close() {
+	if s.db != nil {
+		s.db.Close()
+	}
+}
+
 // New creates a new Server.
-func New(port int, debugLogging bool) (*Server, error) {
+func New(ctx context.Context, port int, debugLogging bool, dbConfig *database.ConnConfig) (*Server, error) {
 	r := mux.NewRouter()
 	// TODO: I'm unclear on the risks of CORS. I recall needing to use it for local frontend development, but it should
 	//   be fine to remove (or restrict somehow) once this is running in "production".
@@ -27,6 +34,11 @@ func New(port int, debugLogging bool) (*Server, error) {
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"}))
 	r.Use(cors)
+
+	db, err := database.New(ctx, dbConfig)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open database: %v", err)
+	}
 	srv := &Server{
 		router:   r,
 		httpsrv: &http.Server{
@@ -35,7 +47,7 @@ func New(port int, debugLogging bool) (*Server, error) {
 			WriteTimeout: 15 * time.Second,
 			ReadTimeout:  15 * time.Second,
 		},
-		db: database.New(),
+		db: db,
 	}
 	setRoutes(r, srv)
 

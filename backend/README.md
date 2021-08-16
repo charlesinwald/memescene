@@ -4,8 +4,14 @@ Backend HTTP server for memescene.
 
 ```
 $ go build main.go
-$ ./main
+$ ./main --db_name=memescene --db_url=localhost --db_port=5432 --db_user=omar --db_pass=pass
 ```
+
+Note:
+* If building and running on a fork of github.com/cinwald/memescene, you must update `go.mod` 
+  in the base directory so it knows to replace import paths with the name of your forked repo.
+* On windows, use `./main.exe`
+* Execution will fail unless the database and user exist.
 
 ## API
 

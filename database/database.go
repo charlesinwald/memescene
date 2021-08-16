@@ -1,20 +1,51 @@
 package database
 
 import (
+	"context"
 	"fmt"
-	"github.com/lithammer/shortuuid"
 	"github.com/cinwald/memescene/database/template"
+	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/lithammer/shortuuid"
 	"io"
 	"os"
 	"strings"
 )
 
-type Database struct {
-	// TODO: Implement this
+// ConnConfig contains enough information to generate a postgres database connection URL.
+type ConnConfig struct {
+	Username, Password, URL, DBName string
+	Port int
 }
 
-func New() *Database {
-	return &Database{}
+// ConnString is suitable for providing to a pgxpool Connect function.
+// Example output:
+// "postgres://jack:secret@pg.example.com:5432/mydb?pool_max_conns=100"
+func (cc ConnConfig) ConnString() string {
+	return fmt.Sprintf("postgres://%s:%s@%s:%d/%s?pool_max_conns=100", cc.Username, cc.Password, cc.URL, cc.Port, cc.DBName)
+}
+
+type Database struct {
+	dbPool *pgxpool.Pool
+
+	closeFunc func()
+}
+
+func (db *Database) Close() {
+	if db.closeFunc != nil {
+		db.closeFunc()
+	}
+}
+
+func New(ctx context.Context, config *ConnConfig) (*Database, error) {
+	dbPool, err := pgxpool.Connect(ctx, config.ConnString())
+	if err != nil {
+		return nil, fmt.Errorf("unable to connect to database: %v", err)
+	}
+
+	return &Database{
+		dbPool: dbPool,
+		closeFunc: dbPool.Close,
+	}, nil
 }
 
 func (db *Database) GetTemplates(ids []string) ([]*template.Template, error) {
