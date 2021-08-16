@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/cinwald/memescene/database"
+	"github.com/charlesinwald/memescene/database"
 	"net/http"
 	"time"
 )

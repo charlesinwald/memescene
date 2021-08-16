@@ -4,8 +4,8 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/cinwald/memescene/backend/server"
-	"github.com/cinwald/memescene/database"
+	"github.com/charlesinwald/memescene/backend/server"
+	"github.com/charlesinwald/memescene/database"
 	"log"
 )
 

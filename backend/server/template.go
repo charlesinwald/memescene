@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/cinwald/memescene/database/template"
+	"github.com/charlesinwald/memescene/database/template"
 	"net/http"
 	"path/filepath"
 	"strings"
