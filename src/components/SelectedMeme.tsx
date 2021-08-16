@@ -45,7 +45,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     //For automatically focusing the new textbox, even if there isn't one yet
     const { activeElement } = useActiveElement();
     const ref = useRef<HTMLDivElement>(null)
-
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     React.useEffect(() => {
         console.log(`Active element:`, activeElement);
@@ -92,25 +92,29 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                             }
                         })}
                     </div>
-                </div>
-                <div className='relative'>
-                    <div className='flex block absolute bottom-0 left-0' id={styles['selected-meme-button-container']}>
-                        <button className='block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
-                            Add Text
-                        </button>
-                        {controlsVisible ?
-                            <button className="block flex-initial bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
-                                Toggle Color
+                    <canvas className="w-full h-full" ref={canvasRef}>
+
+                    </canvas>
+                    <div className='relative'>
+                        <div className='flex block absolute bottom-0 left-0' id={styles['selected-meme-button-container']}>
+                            <button className='block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>
+                                Add Text
                             </button>
-                            :
-                            <button disabled className="block flex-initial bg-gray-500 text-white p-2 rounded m-2">Color</button>
-                        }
-                        <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, { fileName: "memescene-meme" }
-                        )}>
-                            Save
-                        </button>
+                            {controlsVisible ?
+                                <button className="block flex-initial bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
+                                    Toggle Color
+                                </button>
+                                :
+                                <button disabled className="block flex-initial bg-gray-500 text-white p-2 rounded m-2">Color</button>
+                            }
+                            <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onClick={() => exportComponentAsPNG(ref, { fileName: "memescene-meme" }
+                            )}>
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
+
 
             </div>
             <div>
