@@ -1,15 +1,22 @@
-import MemeGenerator from "./MemeGenerator";
-import Header from './common/Header'
+import * as React from "react";
+import { hot } from "react-hot-loader";
 
-function App() {
+const reactLogo = require("./../assets/img/react_logo.svg");
+// import "./../assets/scss/App.scss";
+import "./../styles/tailwind.css";
 
-  return (
-    <div className="App bg-gray-800">
-      <Header />
-      <MemeGenerator />
-
-    </div>
-  );
+class App extends React.Component<Record<string, unknown>, undefined> {
+  public render() {
+    return (
+      <div className="app bg-red-800">
+        <h1>Hello World!</h1>
+        <p>Foo to the barz</p>
+        {/* <img src={reactLogo.default} height="480" /> */}
+      </div>
+    );
+  }
 }
 
-export default App;
+declare let module: Record<string, unknown>;
+
+export default hot(module)(App);
