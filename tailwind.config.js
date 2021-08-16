@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ["./src/**/*.{ts,tsx}", "./src/**/*.html"],
+  purge: ["./src/**/*.{ts,tsx}", "./dist/*.html"],
   // purge: {
   //   mode: "layers",
   //   content: ["./dist/**/*.html"], //https://youtu.be/To2LiO-IxqU?t=348
