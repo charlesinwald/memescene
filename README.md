@@ -1,12 +1,15 @@
 # m e m e scene
 
 ## Introduction
-
+![Search](https://i.imgur.com/jx7UjZx.gif)
 > A meme generator for the masses, memescene aims to start where other meme generators stop, featuring:
  - Draggable Text Boxes
  - Save functionality
  - Editable Text Color
  - & More!
+
+## Code Samples
+
 
 
 ## Installation
