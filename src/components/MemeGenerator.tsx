@@ -113,13 +113,7 @@ function MemeGenerator() {
             {
                 selectedMeme === '' ? (
                     <div className={styles['meme-gallery-container']}>
-                        {memes.filter((val) => {
-                            if (searchTerm.toLowerCase() === '') {
-                                return val;
-                            } else if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                                return val;
-                            }
-                        }).map((meme, index) => MemeItem(meme, index))}
+                        {memes.filter((val) => (searchTerm.toLowerCase() === '' || val.name.toLowerCase().includes(searchTerm.toLowerCase()))).map((meme, index) => MemeItem(meme, index))}
                     </div>
                 ) : (
                     <SelectedMeme key={selectedMeme.id} selectedMeme={selectedMeme} reset={() => setSelectedMeme('')} />
