@@ -71,5 +71,12 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.4.0",
+    "@heroicons/react": "^1.0.3",
+    "axios": "^0.21.1",
+    "react-component-export-image": "^1.0.6",
+    "react-rnd": "^10.3.4"
   }
 }
