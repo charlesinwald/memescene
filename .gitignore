@@ -24,3 +24,5 @@ yarn-error.log*
 
 .idea/*
 backend/main.exe
+main.exe
+database/examples/database_example.exe
