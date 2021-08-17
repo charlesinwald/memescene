@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/cinwald/memescene/database/template"
+	"github.com/charlesinwald/memescene/database/template"
 	"net/http"
 	"path/filepath"
 	"strings"
@@ -21,7 +21,7 @@ func (srv *Server) TemplateGetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ids := strings.Split(rawIDs, ",")
-	templates, err := srv.db.GetTemplates(ids)
+	templates, err := srv.db.GetTemplates(r.Context(), ids)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("failed to get template(s): %v", err), http.StatusInternalServerError)
 		return
@@ -54,7 +54,7 @@ func (srv *Server) TemplateCreateHandler(w http.ResponseWriter, r *http.Request)
 	extension := filepath.Ext(handler.Filename)
 	name := r.FormValue("name")
 	tags := strings.Split(r.FormValue("tags"), ",")
-	t, err := srv.db.CreateTemplate(name, tags, extension, file)
+	t, err := srv.db.CreateTemplate(r.Context(), name, tags, extension, file, true)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("error creating template: %v", err), http.StatusInternalServerError)
 	}
@@ -80,7 +80,7 @@ func (srv *Server) TemplateUpdateHandler(w http.ResponseWriter, r *http.Request)
 		})
 		return
 	}
-	if err := srv.db.UpdateTemplate(&t); err != nil {
+	if err := srv.db.UpdateTemplate(r.Context(), &t); err != nil {
 		http.Error(w, fmt.Sprintf("failed to update provided template: %v", err), http.StatusInternalServerError)
 		return
 	}
@@ -94,8 +94,7 @@ func (srv *Server) TemplateSearchHandler(w http.ResponseWriter, r *http.Request)
 		_, _ = w.Write([]byte("{}"))
 		return
 	}
-	// TODO: Implement parsing a search query and finding results for it.
-	templates, err := srv.db.GetTemplates(nil)
+	templates, err := srv.db.SearchTemplates(r.Context(), rawQuery)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("failed to get template(s): %v", err), http.StatusInternalServerError)
 		return

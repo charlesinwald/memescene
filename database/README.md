@@ -32,12 +32,7 @@
 1. (optional) Delete databases with `DROP DATABASE "db_name";`. Note that quotes around the name are required.
 1. Create a table. https://www.postgresql.org/docs/current/sql-createtable.html
     ```
-	$ psql --username=omar memescene
-	$ CREATE TABLE templates (
-		id          varchar(64) CONSTRAINT firstkey PRIMARY KEY,
-		name        varchar(512) NOT NULL,
-		tags        varchar(1024) NOT NULL,
-		image_uri   varchar(512) NOT NULL
-	);
-	```
-	Note that the line of text for the final field must not end with a comma.
+	$ createdb --username=memelord memescene
+	$ psql --username=memelord memescene < structure.sql
+    ```
+   This command must be run from the database directory so it can find the `structure.sql` file.
