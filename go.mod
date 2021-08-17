@@ -1,4 +1,4 @@
-module github.com/cinwald/memescene
+module github.com/charlesinwald/memescene
 
 go 1.15
 
@@ -11,4 +11,4 @@ require (
 )
 
 // When forking the repo, uncomment and update this line in order to be able to locally modify content.
-// replace github.com/cinwald/memescene => C:/workspace/Go/src/github.com/omustardo/memescene
+// replace github.com/charlesinwald/memescene => C:/workspace/Go/src/github.com/omustardo/memescene
