@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './MemeGenerator.css';
 import SelectedMeme from './SelectedMeme';
+import styles from './MemeCard.module.css';
 import { Disclosure } from '@headlessui/react';
 import { UploadIcon, SearchIcon } from '@heroicons/react/outline';
 import API from '../utils/API';
