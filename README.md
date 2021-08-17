@@ -43,7 +43,7 @@
     <a href="https://github.com/charlesinwald/memescene"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://memescene.vercel.app">Live Site</a>
+    <a href="https://www.memescene.net/">Live Site</a>
     ·
     <a href="https://github.com/charlesinwald/memescene/issues">Report Bug</a>
     ·
