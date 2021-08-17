@@ -153,6 +153,7 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                     id={i.toString()}
                     placeholder='Text'
                     className='resize-x fill-parent meme-text min-w-min'
+                    autoComplete="off"
                     style={{
                         width: '100%',
                         color: `${color}`
