@@ -26,3 +26,4 @@ yarn-error.log*
 backend/main.exe
 main.exe
 database/examples/database_example.exe
+database/examples/search_example.exe

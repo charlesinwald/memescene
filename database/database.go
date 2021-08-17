@@ -142,17 +142,35 @@ func cleanTags(tags []string) []string {
 	return out
 }
 
+// SearchTemplates looks for templates that either:
+// 1. have names containing the full input search query.
+// 2. contain tags which contain the full input search query
+// TODO: This can be improved to match multiple tags, fuzzy matching, related terms, etc.
 func (db *Database) SearchTemplates(ctx context.Context, rawQuery string) ([]*template.Template, error) {
-	pq, err := parseQueryString(rawQuery)
+	var out []*template.Template
+	rows, err := db.dbPool.Query(ctx, `
+SELECT id, name, tags, image_uri
+FROM templates
+--    STRPOS(str, substr)     
+WHERE STRPOS(name, $1) > 0
+  -- If any of the tags contain the string, it's good to go.
+  OR (SELECT SUM(STRPOS(tag, $1)) > 0
+      FROm UNNEST(tags) AS tag)
+`, rawQuery)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse query string: %v", err)
+		return nil, fmt.Errorf("error querying for provided template ids: %v", err)
 	}
-	// TODO: Implement searching database with a parsed query.
-	_ = pq
-	return nil, nil
-}
-
-// TODO: Implement parsing a search query into a struct.
-func parseQueryString(raw string) (string, error){
-	return "", nil
+	defer rows.Close()
+	for rows.Next() {
+		t := new(template.Template)
+		err = rows.Scan(&t.ID, &t.Name, &t.Tags, &t.ImageURI)
+		if err != nil {
+			return nil, fmt.Errorf("error decoding table row into a template: %v",  err)
+		}
+		out = append(out, t)
+	}
+	sort.Slice(out, func(i, j int) bool {
+		return out[i].ID < out[j].ID
+	})
+	return out, nil
 }
