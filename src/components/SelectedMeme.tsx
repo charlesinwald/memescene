@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Rnd } from 'react-rnd';
 import { exportComponentAsPNG } from 'react-component-export-image';
 import styles from './SelectedMeme.module.css'
+import { useSvgDrawing } from 'react-hooks-svgdrawing'
 
 
 function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
@@ -55,6 +56,10 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
     const { activeElement } = useActiveElement();
     const ref = useRef<HTMLDivElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [renderRef, draw] = useSvgDrawing({
+        penWidth: 5,
+        penColor: '#000'
+    })
 
 
     React.useEffect(() => {
@@ -102,9 +107,9 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                             }
                         })}
                     </div>
-                    <canvas className="w-full h-full" ref={canvasRef}>
+                    <div className="w-full h-full" ref={renderRef}>
 
-                    </canvas>
+                    </div>
                     <div className='relative'>
                         <div className='flex block absolute bottom-0 left-0' id={styles['selected-meme-button-container']}>
                             <button className='block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2' onClick={addText()}>

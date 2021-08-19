@@ -77,6 +77,7 @@
     "@heroicons/react": "^1.0.3",
     "axios": "^0.21.1",
     "react-component-export-image": "^1.0.6",
+    "react-hooks-svgdrawing": "^2.1.2",
     "react-rnd": "^10.3.4"
   }
 }
