@@ -116,9 +116,14 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
                                 Add Text
                             </button>
                             {controlsVisible ?
-                                <button className="block flex-initial bg-blue-500 t ext-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
-                                    Toggle Color
-                                </button>
+                                <div>
+                                    <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => changeColor()}>
+                                        Toggle Color
+                                    </button>
+                                    <button className="block flex-initial bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2" onMouseDownCapture={(e) => deleteText()}>
+                                        Delete
+                                    </button>
+                                </div>
                                 :
                                 <button disabled className="block flex-initial bg-gray-500 text-white p-2 rounded m-2">Color</button>
                             }
@@ -196,10 +201,23 @@ function SelectedMeme(props: { selectedMeme: any; reset: () => void }) {
             console.log(memeTextBoxes[id]);
         }
     }
+    function deleteText(): void {
+        if (activeElement && activeElement.id) {
+            let id: number = Number(activeElement.id);
+            console.log(memeTextBoxes[id]);
+            let newArr: DankMeme[] = [...memeTextBoxes];
+            if (id > -1) {
+                newArr.splice(id, 1);
+                setMemeTexts(newArr);
+            }
+        }
+    }
 
 }
 
 export default SelectedMeme;
+
+
 
 
 
